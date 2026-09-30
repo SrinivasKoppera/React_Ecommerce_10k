@@ -11,7 +11,7 @@ const Login = () => {
   );
 
   const [loginData, setLoginData] = useState({
-    username: "",
+    email: "",
     password: "",
   });
 
@@ -26,17 +26,13 @@ const Login = () => {
   const handleLogin = (e) => {
     e.preventDefault();
 
-    const user = users.find((user) => {
-      if (
-        user.email === loginData.email &&
-        user.password === loginData.password
-      ) {
-        return true;
-      }
-      return false;
-    });
+    const user = users.find(
+      (user) =>
+        user.email === loginData.email && user.password === loginData.password,
+    );
 
     if (user) {
+      localStorage.setItem("currentUser", JSON.stringify(user));
       navigate("/");
     } else {
       alert("Invalid username or password!");
@@ -47,12 +43,12 @@ const Login = () => {
     <div className="login-container">
       <h1>Login Page</h1>
       <div className="login-field">
-        <label htmlFor="username">Username:</label>
+        <label htmlFor="email">Email:</label>
         <input
-          type="text"
-          id="username"
-          name="username"
-          value={loginData.username}
+          type="email"
+          id="email"
+          name="email"
+          value={loginData.email}
           onChange={onChangeInput}
         />
       </div>
