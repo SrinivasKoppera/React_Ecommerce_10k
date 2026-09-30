@@ -3,12 +3,10 @@ import { Link, useNavigate } from "react-router-dom";
 import { useState } from "react";
 
 const Login = () => {
+  const localStorageUsers = localStorage.getItem("users");
+
   const navigate = useNavigate();
-  const [users, setUsers] = useState(
-    localStorage.getItem("users")
-      ? JSON.parse(localStorage.getItem("users"))
-      : [],
-  );
+  const users = localStorageUsers ? JSON.parse(localStorageUsers) : [];
 
   const [loginData, setLoginData] = useState({
     email: "",
@@ -30,7 +28,6 @@ const Login = () => {
       (user) =>
         user.email === loginData.email && user.password === loginData.password,
     );
-
     if (user) {
       localStorage.setItem("currentUser", JSON.stringify(user));
       navigate("/");

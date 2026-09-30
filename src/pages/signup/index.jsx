@@ -2,10 +2,10 @@ import "./index.css";
 import { Link } from "react-router-dom";
 import { useState } from "react";
 const Signup = () => {
+  const localStorageUsers = localStorage.getItem("users");
+
   const [users, setUsers] = useState(
-    localStorage.getItem("users")
-      ? JSON.parse(localStorage.getItem("users"))
-      : [],
+    localStorageUsers ? JSON.parse(localStorageUsers) : [],
   );
 
   const [userData, setUserData] = useState({
@@ -15,7 +15,6 @@ const Signup = () => {
   });
 
   const onChangeInput = (event) => {
-    console.log(event.target);
     const { name, value } = event.target;
 
     setUserData({
@@ -27,6 +26,14 @@ const Signup = () => {
   const handleSubmit = (event) => {
     event.preventDefault();
 
+    const findExistingUser = users.find(
+      (user) => user.email === userData.email,
+    );
+
+    if (findExistingUser) {
+      alert("User with this email already exists");
+      return;
+    }
     const updatedUsers = [...users, userData];
     setUsers(updatedUsers);
 
