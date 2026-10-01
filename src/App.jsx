@@ -12,6 +12,7 @@ import Products from "./pages/products";
 import ProductsDetails from "./pages/products-details";
 import Header from "./components/header";
 import "./App.css";
+import Footer from "./components/footer";
 
 function PublicRoute() {
   return localStorage.getItem("currentUser") ? (
@@ -46,6 +47,7 @@ function App() {
             <Route path="/products/:id" element={<ProductsDetails />} />
           </Route>
         </Routes>
+        <Footer />
       </BrowserRouter>
     </>
   );
