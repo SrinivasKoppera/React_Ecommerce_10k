@@ -13,6 +13,8 @@ import ProductsDetails from "./pages/products-details";
 import Header from "./components/header";
 import "./App.css";
 import Footer from "./components/footer";
+import ContactUs from "./pages/contactus";
+import Cart from "./pages/cart";
 
 function PublicRoute() {
   return localStorage.getItem("currentUser") ? (
@@ -44,6 +46,8 @@ function App() {
           <Route element={<PrivateRoute />}>
             <Route path="/" element={<Home />} />
             <Route path="/products" element={<Products />} />
+            <Route path="/contact-us" element={<ContactUs />} />
+            <Route path="/cart" element={<Cart />} />
             <Route path="/products/:id" element={<ProductsDetails />} />
           </Route>
         </Routes>
