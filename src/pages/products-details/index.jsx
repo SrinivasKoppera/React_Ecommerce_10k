@@ -1,8 +1,11 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { toast } from "react-toastify";
 import "./index.css";
 
 const ProductsDetails = () => {
+  const dispatch = useDispatch();
   const params = useParams();
   const [product, setProduct] = useState(null);
   const [loading, setLoading] = useState(true);
@@ -13,7 +16,6 @@ const ProductsDetails = () => {
     const data = await response.json();
     setProduct(data);
     setLoading(false);
-    console.log(data);
   };
 
   useEffect(() => {
@@ -24,6 +26,17 @@ const ProductsDetails = () => {
 
   const handleQuantityChange = (amount) => {
     setQuantity((prevQuantity) => Math.max(prevQuantity + amount, 1));
+  };
+
+  const handleAddToCart = () => {
+    dispatch({
+      type: "ADD_TO_CART",
+      payload: {
+        product,
+        quantity,
+      },
+    });
+    toast.success("Product added to cart!");
   };
 
   return (
@@ -64,7 +77,9 @@ const ProductsDetails = () => {
                   +
                 </button>
               </div>
-              <button className="add-to-cart-button">Add to Cart</button>
+              <button className="add-to-cart-button" onClick={handleAddToCart}>
+                Add to Cart
+              </button>
             </div>
           </div>
         </div>

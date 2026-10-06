@@ -9,8 +9,6 @@ const ProductCard = ({ product }) => {
     navigate(`/products/${productId}`);
   };
 
-  console.log(product.images[0]);
-
   return (
     <div className="product-card">
       <img
